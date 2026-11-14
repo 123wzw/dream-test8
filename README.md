@@ -14,18 +14,14 @@ from engine.query import query
 rows = query("SELECT name, age FROM users WHERE age > 30")
 ```
 
-数据从 `data/` 下的 CSV 加载，表名即文件名。
+## 目录
 
-## 数据
-
-| 文件 | 内容 |
-|---|---|
-| `data/users.csv` | id, name, age, city, manager_id |
-| `data/orders.csv` | id, user_id, amount, status, created_at |
-
-## 支持的语法
-
-见 `docs/SQL_SPEC.md`，里面列的写法都要支持。
+```
+engine/query.py    查询入口（目前所有逻辑都在这一个文件里）
+data/              users / orders 两张表
+docs/SQL_SPEC.md   支持的语法
+tests/             29 个用例
+```
 
 ## 测试
 
@@ -35,5 +31,5 @@ rows = query("SELECT name, age FROM users WHERE age > 30")
 
 ## 已知问题
 
-- 目前只够跑最简单的单表查询，报表那边提的需求大半还不支持。
-- `JOIN`、聚合、排序都还没有。
+- `engine/query.py` 已经 488 行，解析、规划、求值全揉在一起，改一处很容易碰坏别处。
+- 想加新语法（比如子查询）根本没地方下手。
